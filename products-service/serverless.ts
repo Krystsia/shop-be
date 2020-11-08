@@ -24,9 +24,23 @@ const serverlessConfiguration: Serverless = {
     },
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
+      PG_HOST: 'lesson4-instance.cyuu6wtxowkz.eu-west-1.rds.amazonaws.com',
+      PG_PORT: 5432,
+      PG_DATABASE: 'lesson4',
+      PG_USERNAME: 'postgres',
+      PG_PASSWORD: 'DC8FETw3exlM9iCxqWOr',
     },
   },
   functions: {
+    products: {
+      handler: 'pg-client.invoke',
+    },
+    getAllProducts: {
+      handler: 'pg-client.getAllProducts',
+    },
+    hello: {
+      handler: 'pg-client-lambda.invoke',
+    },
     getProductsList: {
       handler: 'handler.getProductsList',
       events: [
