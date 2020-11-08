@@ -12,14 +12,14 @@ export type Product = {
 
 export const getProductsList : APIGatewayProxyHandler = async () => {
 
-  const products = await getAllProducts();
+  const { rows } = await getAllProducts();
 
   return {
     statusCode: 200,
     headers: {
       'Access-Control-Allow-Origin': '*',
     },
-    body: JSON.stringify(products),
+    body: JSON.stringify(rows),
   };
 }
 

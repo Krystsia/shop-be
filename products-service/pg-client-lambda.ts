@@ -28,7 +28,7 @@ export const invoke = async () => {
 
     const ddlResult2 = await client.query(`
       create table if not exists todo_item (
-        id uuid primary key DEFAULT uuid_generate_v4(),
+        id serial primary key,
         list_id integer,
         item_name text,
         item_description text,

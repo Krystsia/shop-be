@@ -12,19 +12,21 @@ export const invoke = async () => {
 
     const ddlResult = await client.query(`
       create table if not exists products (
-        id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+        id uuid DEFAULT uuid_generate_v4(),
         title text not null,
         description text,
-        price integer
+        price integer,
+        PRIMARY KEY (id)
       )
     `);
 
     const ddlResult2 = await client.query(`
       create table if not exists stocks (
-        id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+        id uuid DEFAULT uuid_generate_v4(),
         product_id uuid,
         count integer,
-        foreign key ("product_id") references "products" ("id")
+        foreign key (product_id) references products (id),
+        PRIMARY KEY (id)
       )
     `)
 
@@ -32,6 +34,13 @@ export const invoke = async () => {
       insert into products (title, description, price) values
       ('Product Title 1', 'This product ...', 200),
       ('Product Title 1', 'This product ...', 300)
+    `);
+
+
+    const dmlResult2 = await client.query(`
+      insert into stocks (count, product_id) values
+      (4, '79bf3aac-1b06-4e5a-8c38-e0aab1c08d5a'),
+      (6, '8282c1ad-02bb-494a-9e06-8bec41e6fcd5')
     `);
 
 
