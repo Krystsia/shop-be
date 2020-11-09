@@ -1,4 +1,7 @@
-import { invoke } from './db/pg-client';
-import { getAllProducts } from './db/get-all-products';
+import { invoke } from './db/pgClient';
+import { getAllProductsFromDb } from './db/getAllProducts';
+import { getProductByIdFromDb } from './db/getProductById';
+import { createProductInDb } from './db/createProduct';
+import { invokeHello } from './pg-client-lambda';
 
-export { invoke, getAllProducts }
+export { invokeHello, invoke, getAllProductsFromDb, getProductByIdFromDb, createProductInDb };

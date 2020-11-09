@@ -32,14 +32,20 @@ const serverlessConfiguration: Serverless = {
     },
   },
   functions: {
-    products: {
+    hello: {
+      handler: 'pg-client.invokeHello',
+    },
+    setDefaultProducts: {
       handler: 'pg-client.invoke',
     },
     getAllProducts: {
-      handler: 'pg-client.getAllProducts',
+      handler: 'pg-client.getAllProductsFromDb',
     },
-    hello: {
-      handler: 'pg-client-lambda.invoke',
+    getProductByIdFromDb: {
+      handler: 'pg-client.getProductByIdFromDb'
+    },
+    createProductInDb: {
+      handler: 'pg-client.createProductInDb'
     },
     getProductsList: {
       handler: 'handler.getProductsList',
@@ -65,6 +71,27 @@ const serverlessConfiguration: Serverless = {
               parameters: {
                 paths: {
                   productId: true
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    createProduct: {
+      handler: 'handler.createProduct',
+      events: [
+        {
+          http: {
+            method: 'post',
+            path: 'products',
+            cors: true,
+            request: {
+              parameters: {
+                querystrings: {
+                  title: true,
+                  description: true,
+                  price: true,
                 }
               }
             }

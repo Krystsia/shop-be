@@ -3,14 +3,17 @@ import 'source-map-support/register';
 import {getAllProductsFromDb} from "../db/getAllProducts";
 import {Product} from "../interfaces/Product";
 import {ApiError} from "../interfaces/ApiError";
+import {createProductInDb} from "../db/createProduct";
 
 
-export const getProductsList : APIGatewayProxyHandler = async () => {
+export const createProduct : APIGatewayProxyHandler = async (event) => {
+
+  console.log(event, 'eeeeeeeeeeeeeeeeeeee');
 
   try {
-    const { rows }: { rows: Array<Product>} = await getAllProductsFromDb();
+    const { rows }: { rows: Array<Product>} = await createProductInDb(JSON.parse(event.));
 
-    console.log('all products', rows);
+    console.log('created product', rows);
 
     return {
       statusCode: 200,
