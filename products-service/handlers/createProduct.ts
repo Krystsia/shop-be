@@ -1,6 +1,5 @@
 import { APIGatewayProxyHandler } from 'aws-lambda';
 import 'source-map-support/register';
-import {getAllProductsFromDb} from "../db/getAllProducts";
 import {Product} from "../interfaces/Product";
 import {ApiError} from "../interfaces/ApiError";
 import {createProductInDb} from "../db/createProduct";
@@ -9,7 +8,7 @@ import {createProductInDb} from "../db/createProduct";
 export const createProduct : APIGatewayProxyHandler = async (event) => {
 
   try {
-    const { rows }: { rows: Array<Product>} = await createProductInDb(JSON.parse(event.));
+    const { rows }: { rows: Array<Product>} = await createProductInDb(JSON.parse(event.body));
 
     console.log('created product', rows);
 

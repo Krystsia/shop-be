@@ -6,14 +6,14 @@ import {ApiError} from "../interfaces/ApiError";
 export const getProductsById : APIGatewayProxyHandler = async (event, _context) => {
 
   try {
-    const { rows: product } = await getProductByIdFromDb(event.pathParameters.productId);
+    const { rows: products } = await getProductByIdFromDb(event.pathParameters.productId);
 
     return {
       statusCode: 200,
       headers: {
         'Access-Control-Allow-Origin': '*',
       },
-      body: JSON.stringify(product),
+      body: JSON.stringify(products),
     };
   } catch (err) {
 
