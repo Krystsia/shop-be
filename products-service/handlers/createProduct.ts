@@ -1,19 +1,23 @@
-import {APIGatewayProxyHandler} from "aws-lambda";
+import { APIGatewayProxyHandler } from 'aws-lambda';
 import 'source-map-support/register';
-import {getProductByIdFromDb} from "../db/getProductById";
+import {Product} from "../interfaces/Product";
 import {ApiError} from "../interfaces/ApiError";
+import {createProductInDb} from "../db/createProduct";
 
-export const getProductsById : APIGatewayProxyHandler = async (event, _context) => {
+
+export const createProduct : APIGatewayProxyHandler = async (event) => {
 
   try {
-    const { rows: products } = await getProductByIdFromDb(event.pathParameters.productId);
+    const { rows }: { rows: Array<Product>} = await createProductInDb(JSON.parse(event.body));
+
+    console.log('created product', rows);
 
     return {
       statusCode: 200,
       headers: {
         'Access-Control-Allow-Origin': '*',
       },
-      body: JSON.stringify(products),
+      body: JSON.stringify(rows),
     };
   } catch (err) {
 
@@ -29,3 +33,5 @@ export const getProductsById : APIGatewayProxyHandler = async (event, _context) 
     }
   }
 }
+
+
