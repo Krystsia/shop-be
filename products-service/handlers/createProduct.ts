@@ -8,8 +8,6 @@ import {createProductInDb} from "../db/createProduct";
 
 export const createProduct : APIGatewayProxyHandler = async (event) => {
 
-  console.log(event, 'eeeeeeeeeeeeeeeeeeee');
-
   try {
     const { rows }: { rows: Array<Product>} = await createProductInDb(JSON.parse(event.));
 
